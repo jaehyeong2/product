@@ -12,8 +12,10 @@ class Product(
 
     val sellerId: Long,
 
+    @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL])
+    val optionGroups: MutableList<ProductOptionGroup> = mutableListOf(),
+
     var name: String,
-    val code: String,
 
     @CreationTimestamp
     val createdAt: LocalDateTime?= null,
@@ -21,5 +23,9 @@ class Product(
     @UpdateTimestamp
     var updatedAt: LocalDateTime? = null
 ) {
+
+    fun addOptionGroup(optionGroup: ProductOptionGroup){
+        optionGroups.add(optionGroup)
+    }
 
 }

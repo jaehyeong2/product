@@ -12,6 +12,9 @@ class ProductOptionGroup(
 
     @ManyToOne(fetch = FetchType.LAZY)
     val product: Product,
+
+    @OneToMany(mappedBy = "product_option_group", cascade = [CascadeType.ALL])
+    val options: MutableList<ProductOption> = mutableListOf(),
     var name: String,
 
     @CreationTimestamp
@@ -20,5 +23,9 @@ class ProductOptionGroup(
     @UpdateTimestamp
     var updatedAt: LocalDateTime? = null
 ) {
+
+    fun addOption(option: ProductOption){
+        options.add(option)
+    }
 
 }
