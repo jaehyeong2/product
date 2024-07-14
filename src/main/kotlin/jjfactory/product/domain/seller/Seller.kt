@@ -11,7 +11,7 @@ class Seller(
     val id: Long? = null,
 
     val name: String,
-    val code: String,
+    val code: String = "",
     val bizNum: String,
 
     @OneToMany(mappedBy = "seller", cascade = [CascadeType.ALL])
