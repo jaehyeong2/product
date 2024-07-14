@@ -2,14 +2,18 @@ package jjfactory.product.domain.order
 
 class OrderCommand {
     data class Create(
-        val optionId: Long,
-        val amount: Int
+        val options: List<OptionContainer>
     ){
         fun toEntity(userId: Long): Order{
             return Order(
                 userId = userId,
-                amount = amount
             )
         }
     }
+
+    data class OptionContainer(
+        val id: Long,
+        val qty: Int,
+        val amount: Int
+    )
 }

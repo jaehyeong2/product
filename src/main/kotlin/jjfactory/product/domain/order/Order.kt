@@ -12,10 +12,12 @@ class Order(
     val id: Long? = null,
 
     val userId: Long,
-    val amount:Int,
 
     //fixme
     val orderCode: String = "",
+
+    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL])
+    val orderOptions: MutableList<OrderProductOption> = mutableListOf(),
 
     @Enumerated(EnumType.STRING)
     var status: OrderStatus = OrderStatus.NEW,
@@ -37,5 +39,19 @@ class Order(
             throw IllegalStateException()
 
         status = OrderStatus.CANCELED
+    }
+
+    fun addOption(option: OrderProductOption){
+        orderOptions.add(option)
+    }
+
+    fun getTotalAmount(): Int {
+        var totalAmount = 0
+
+        orderOptions.forEach {
+            totalAmount += it.getTotalAmount()
+        }
+
+        return totalAmount
     }
 }
