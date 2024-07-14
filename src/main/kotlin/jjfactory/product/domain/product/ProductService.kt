@@ -23,10 +23,12 @@ class ProductService(
             initProduct.addOptionGroup(optionGroup)
 
             it.options.forEach { option ->
-                ProductOption(
+                val option = ProductOption(
                     name = option.name,
                     optionGroup = optionGroup
                 )
+
+                optionGroup.addOption(option)
             }
         }
 
