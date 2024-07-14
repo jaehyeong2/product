@@ -6,26 +6,24 @@ import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
 @Entity
-class Seller(
+class SellerManager(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    val name: String,
-    val code: String,
-    val bizNum: String,
+    val email: String,
+    val password: String,
 
-    @OneToMany(mappedBy = "seller", cascade = [CascadeType.ALL])
-    val managers: MutableList<SellerManager> = mutableListOf(),
+    @ManyToOne(fetch = FetchType.LAZY)
+    val seller: Seller,
+
+    var lastName: String,
+    var firstName: String,
+    var phone: String,
 
     @CreationTimestamp
     val createdAt: LocalDateTime?= null,
-
     @UpdateTimestamp
     var updatedAt: LocalDateTime? = null
 ) {
-
-    fun addManager(manager: SellerManager){
-        managers.add(manager)
-    }
 
 }
