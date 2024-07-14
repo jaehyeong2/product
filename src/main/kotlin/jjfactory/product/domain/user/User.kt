@@ -1,21 +1,25 @@
-package jjfactory.product.domain.product
+package jjfactory.product.domain.user
 
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
+@Table(name = "users")
 @Entity
-class ProductOptionGroup(
+class User(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    val product: Product,
+    var lastName: String,
+    var firstName: String,
+    var phone: String,
 
-    @OneToMany(mappedBy = "optionGroup", cascade = [CascadeType.ALL])
-    val options: MutableList<ProductOption> = mutableListOf(),
-    var name: String,
+    val username: String,
+    var password: String,
+
+    @Enumerated(EnumType.STRING)
+    val gender: Gender,
 
     @CreationTimestamp
     val createdAt: LocalDateTime?= null,
@@ -24,8 +28,8 @@ class ProductOptionGroup(
     var updatedAt: LocalDateTime? = null
 ) {
 
-    fun addOption(option: ProductOption){
-        options.add(option)
+    enum class Gender{
+        MALE, FEMALE
     }
 
 }
