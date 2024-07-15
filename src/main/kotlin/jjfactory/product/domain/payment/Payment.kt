@@ -15,11 +15,27 @@ class Payment(
 
     val amount: Int,
 
+    @Enumerated(EnumType.STRING)
+    val method: PayMethod,
+
+    @Enumerated(EnumType.STRING)
+    var status: Status = Status.READY,
+
     @CreationTimestamp
     val createdAt: LocalDateTime?= null,
-
     @UpdateTimestamp
     var updatedAt: LocalDateTime? = null
 ) {
+    enum class Status{
+        READY, PAID, CANCELED
+    }
+
+    fun pay(){
+        status = Status.PAID
+    }
+
+    fun cancel(){
+        status = Status.CANCELED
+    }
 
 }
