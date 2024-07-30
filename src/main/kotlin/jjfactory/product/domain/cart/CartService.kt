@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CartService(
-    private val cartRepository: CartRepository
+    private val cartRepository: CartRepository,
 ) {
 
     @Transactional
@@ -19,8 +19,13 @@ class CartService(
     }
 
     @Transactional(readOnly = true)
-    fun getMyCartList(userId: Long){
-
+    fun getMyCartList(userId: Long): List<CartInfo.Detail> {
+        return cartRepository.findAllByUserIdOrderByCreatedAtDesc(userId).map {
+            CartInfo.Detail(
+                id = it.id!!,
+                productId = it.productId
+            )
+        }
     }
 
     @Transactional
