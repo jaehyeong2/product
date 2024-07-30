@@ -14,7 +14,6 @@ class Product(
 
     @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL])
     val optionGroups: MutableList<ProductOptionGroup> = mutableListOf(),
-
     var name: String,
 
     @CreationTimestamp
