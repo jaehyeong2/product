@@ -17,15 +17,7 @@ class ProductQueryApi(
     private val productService: ProductService
 ) {
 
-    @PostMapping
-    fun productPost(@RequestBody request: ProductCommand.Create) {
-        val loginSellerId = 2L
 
-        productService.productPost(
-            sellerId = loginSellerId,
-            command = request
-        )
-    }
 
     @GetMapping
     fun getProductList(@RequestParam sellerId: Long){

@@ -1,5 +1,6 @@
 package jjfactory.product.domain.product
 
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -24,6 +25,7 @@ class ProductService(
     }
 
 
+    @CacheEvict(key = "#sellerId", cacheNames = ["products"])
     @Transactional
     fun productPost(sellerId: Long, command: ProductCommand.Create): Long {
         val initProduct = Product(
