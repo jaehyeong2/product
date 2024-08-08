@@ -21,6 +21,9 @@ class User(
     @Enumerated(EnumType.STRING)
     val gender: Gender,
 
+    @Enumerated(EnumType.STRING)
+    var grade: UserGrade = UserGrade.NORMAL,
+
     @CreationTimestamp
     val createdAt: LocalDateTime?= null,
 
@@ -30,6 +33,16 @@ class User(
 
     enum class Gender{
         MALE, FEMALE
+    }
+
+    fun adjustGrade(purchaseCount: Int){
+        grade = if (purchaseCount >= 100) {
+            UserGrade.VIP
+        }else if (purchaseCount >= 50) {
+            UserGrade.SPECIAL
+        }else {
+            UserGrade.NORMAL
+        }
     }
 
 }

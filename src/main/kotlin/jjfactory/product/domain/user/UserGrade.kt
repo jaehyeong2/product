@@ -1,4 +1,5 @@
 package jjfactory.product.domain.user
 
-class UserGrade {
+enum class UserGrade {
+    NORMAL, SPECIAL, VIP
 }
